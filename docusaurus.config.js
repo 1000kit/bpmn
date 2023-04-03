@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'BPMN best practices',
+  title: 'BPMN',
   tagline: 'bpmn',
   favicon: 'img/favicon.ico',
 
@@ -76,21 +76,21 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/bpmnicon1.png',
       navbar: {
-        title: 'BPMN best practices',
+        title: 'BPMN',
         logo: {
-          alt: 'BPMN best practices',
-          src: 'img/logo.svg',
+          alt: 'BPMN',
+          src: 'img/bpmnicon1.png',
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Best practices',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          //{to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/1000kit',
             label: 'GitHub',

@@ -4,7 +4,7 @@ sidebar_position: 8
 
 # Messages
 
-Camunda 8 uses [message buffering](https://docs.camunda.io/docs/components/concepts/messages/#message-buffering), so the process instance doesn't have to be ready to receive the message event at exactly the moment it occurs (use message attribute TTL - time to live instead of time events or retry workarounds). Buffered message is mapped to a process instance based on the correlation key. Here the best practices on creating of correlation key taken from REFERENCE BOOK
+Camunda 8 uses **[message buffering](https://docs.camunda.io/docs/components/concepts/messages/#message-buffering)**, so the process instance doesn't have to be ready to receive the message event at exactly the moment it occurs (use message attribute TTL - time to live instead of time events or retry workarounds). Buffered message is mapped to a process instance based on the correlation key. Here the best practices on creating of correlation key taken from **[book Practical process automation](https://camunda.com/blog/2021/03/publishing-practical-process-automation/)**
 - use UUID for correlation ID
 - don't use process instance ID
 - avoid using business data that are not unique within the cluster
@@ -20,7 +20,7 @@ When several process instances within a one process are running and subscribe fo
 
 ![Process with several instances](/img/msg_oneProcessManyInstances.svg)
 
-Other instances remain waiting (unless not handled in a process differently). See [process instance modification](https://docs.camunda.io/docs/components/concepts/process-instance-modification/) for possibilities to repair a running process instance.
+Other instances remain waiting (unless not handled in a process differently). See **[process instance modification](https://docs.camunda.io/docs/components/concepts/process-instance-modification/)** for possibilities to repair a running process instance.
 
 ### Processes with different BPMN IDs
 
