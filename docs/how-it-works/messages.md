@@ -18,7 +18,7 @@ The correlation key have to be unique within the cluster to assure that the mess
 
 When several process instances within a one process are running and subscribe for a message, the message is correlated only once to one of them.
 
-![Process with several instances](/img/msg_oneProcessManyInstances.svg)
+![Process with several instances](./img/msg_oneProcessManyInstances.svg)
 
 Other instances remain waiting (unless not handled in a process differently). See **[process instance modification](https://docs.camunda.io/docs/components/concepts/process-instance-modification/)** for possibilities to repair a running process instance.
 
@@ -26,7 +26,7 @@ Other instances remain waiting (unless not handled in a process differently). Se
 
 Processes with different BPMN Process IDs are independend different processes. By creation of multiple subscriptions with the same correlation key from different processes, a message is correlated within each process (once within one BPMN process ID) to only one process instance from all existing ones.
 
-![Processes with different BPMN process IDs](/img/msg_differentProcesses.svg)
+![Processes with different BPMN process IDs](./img/msg_differentProcesses.svg)
 
 ### Processes with the same BPMN ID but different versions
 
@@ -37,6 +37,6 @@ When a process is deployed, it receives a version number. After making changes t
     - the process with the same BPMN Process ID but different version is created
     - an instance is created
 
-![One BPMN process ID with several versions](/img/msg_oneProcessManyVersions.svg)
+![One BPMN process ID with several versions](./img/msg_oneProcessManyVersions.svg)
 
 A message is correlated only once to a process (once within one BPMN process ID), across all versions of this process. If multiple subscriptions for the same process are opened (by multiple process instances or within one instance), the message is correlated only to one of the subscriptions.
