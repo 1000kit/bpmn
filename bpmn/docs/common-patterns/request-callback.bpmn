@@ -4,55 +4,55 @@
     <bpmn:startEvent id="StartEvent_1" name="callback to be processed">
       <bpmn:outgoing>Flow_0nrtgco</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_0nrtgco" sourceRef="StartEvent_1" targetRef="Activity_07dnnsg" />
-    <bpmn:sequenceFlow id="Flow_09xex53" sourceRef="Activity_07dnnsg" targetRef="Gateway_0o54w7x" />
+    <bpmn:sequenceFlow id="Flow_0nrtgco" sourceRef="StartEvent_1" targetRef="Activity_send_request" />
+    <bpmn:sequenceFlow id="Flow_09xex53" sourceRef="Activity_send_request" targetRef="Gateway_0o54w7x" />
     <bpmn:eventBasedGateway id="Gateway_0o54w7x">
       <bpmn:incoming>Flow_09xex53</bpmn:incoming>
       <bpmn:outgoing>Flow_071wgvi</bpmn:outgoing>
       <bpmn:outgoing>Flow_1i17uzq</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:sequenceFlow id="Flow_071wgvi" sourceRef="Gateway_0o54w7x" targetRef="Event_1j1l6pz" />
-    <bpmn:intermediateCatchEvent id="Event_1j1l6pz" name="callback received">
+    <bpmn:sequenceFlow id="Flow_071wgvi" sourceRef="Gateway_0o54w7x" targetRef="Event_callback_received" />
+    <bpmn:intermediateCatchEvent id="Event_callback_received" name="callback received">
       <bpmn:incoming>Flow_071wgvi</bpmn:incoming>
       <bpmn:outgoing>Flow_0xp26l5</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1c8b9no" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_1i17uzq" sourceRef="Gateway_0o54w7x" targetRef="Event_0y2qbxt" />
-    <bpmn:intermediateCatchEvent id="Event_0y2qbxt" name="2 hours">
+    <bpmn:sequenceFlow id="Flow_1i17uzq" sourceRef="Gateway_0o54w7x" targetRef="Event_two_hours" />
+    <bpmn:intermediateCatchEvent id="Event_two_hours" name="2 hours">
       <bpmn:incoming>Flow_1i17uzq</bpmn:incoming>
       <bpmn:outgoing>Flow_1hwlhkj</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0cx3vmb" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_0xp26l5" sourceRef="Event_1j1l6pz" targetRef="Activity_1cr3jtd" />
+    <bpmn:sequenceFlow id="Flow_0xp26l5" sourceRef="Event_callback_received" targetRef="Activity_process_callback" />
     <bpmn:endEvent id="Event_0hgo054" name="callback processed">
       <bpmn:incoming>Flow_1ad6y1c</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1ad6y1c" sourceRef="Activity_1cr3jtd" targetRef="Event_0hgo054" />
-    <bpmn:sequenceFlow id="Flow_1hwlhkj" sourceRef="Event_0y2qbxt" targetRef="Activity_01w5d2l" />
+    <bpmn:sequenceFlow id="Flow_1ad6y1c" sourceRef="Activity_process_callback" targetRef="Event_0hgo054" />
+    <bpmn:sequenceFlow id="Flow_1hwlhkj" sourceRef="Event_two_hours" targetRef="Activity_process_timeout" />
     <bpmn:endEvent id="Event_0jtra73" name="callback not received">
       <bpmn:incoming>Flow_0krbfez</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0krbfez" sourceRef="Activity_01w5d2l" targetRef="Event_0jtra73" />
-    <bpmn:boundaryEvent id="Event_0l8m9t8" attachedToRef="Activity_1cr3jtd">
+    <bpmn:sequenceFlow id="Flow_0krbfez" sourceRef="Activity_process_timeout" targetRef="Event_0jtra73" />
+    <bpmn:boundaryEvent id="Event_error" attachedToRef="Activity_process_callback">
       <bpmn:outgoing>Flow_168u7yt</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1xjr2um" />
     </bpmn:boundaryEvent>
     <bpmn:endEvent id="Event_15kbjj6" name="error found">
       <bpmn:incoming>Flow_168u7yt</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_168u7yt" sourceRef="Event_0l8m9t8" targetRef="Event_15kbjj6" />
-    <bpmn:serviceTask id="Activity_1cr3jtd" name="process callback">
+    <bpmn:sequenceFlow id="Flow_168u7yt" sourceRef="Event_error" targetRef="Event_15kbjj6" />
+    <bpmn:serviceTask id="Activity_process_callback" name="process callback">
       <bpmn:incoming>Flow_0xp26l5</bpmn:incoming>
       <bpmn:outgoing>Flow_1ad6y1c</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_01w5d2l" name="process timeout">
+    <bpmn:serviceTask id="Activity_process_timeout" name="process timeout">
       <bpmn:incoming>Flow_1hwlhkj</bpmn:incoming>
       <bpmn:outgoing>Flow_0krbfez</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Activity_07dnnsg" name="send request">
+    <bpmn:serviceTask id="Activity_send_request" name="send request">
       <bpmn:incoming>Flow_0nrtgco</bpmn:incoming>
       <bpmn:outgoing>Flow_09xex53</bpmn:outgoing>
-    </bpmn:sendTask>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_05qftma">
@@ -65,13 +65,13 @@
       <bpmndi:BPMNShape id="Gateway_0o54w7x_di" bpmnElement="Gateway_0o54w7x">
         <dc:Bounds x="445" y="92" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1j1l6pz_di" bpmnElement="Event_1j1l6pz">
+      <bpmndi:BPMNShape id="Event_1j1l6pz_di" bpmnElement="Event_callback_received">
         <dc:Bounds x="572" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="548" y="142" width="85" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_104p4m1_di" bpmnElement="Event_0y2qbxt">
+      <bpmndi:BPMNShape id="Event_104p4m1_di" bpmnElement="Event_two_hours">
         <dc:Bounds x="572" y="332" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="572" y="375" width="38" height="14" />
@@ -95,16 +95,16 @@
           <dc:Bounds x="923" y="265" width="55" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ig4koj_di" bpmnElement="Activity_1cr3jtd">
+      <bpmndi:BPMNShape id="Activity_0ig4koj_di" bpmnElement="Activity_process_callback">
         <dc:Bounds x="720" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1sy9niu_di" bpmnElement="Activity_01w5d2l">
+      <bpmndi:BPMNShape id="Activity_1sy9niu_di" bpmnElement="Activity_process_timeout">
         <dc:Bounds x="720" y="310" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_012mza2_di" bpmnElement="Activity_07dnnsg">
+      <bpmndi:BPMNShape id="Activity_0v8m9d2_di" bpmnElement="Activity_send_request">
         <dc:Bounds x="270" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0l8m9t8_di" bpmnElement="Event_0l8m9t8">
+      <bpmndi:BPMNShape id="Event_0l8m9t8_di" bpmnElement="Event_error">
         <dc:Bounds x="782" y="139" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0nrtgco_di" bpmnElement="Flow_0nrtgco">
